@@ -21,6 +21,14 @@ def _create_dct_1d_transform_matrix(N_val):
             T[k_idx, n_idx] = np.cos((2 * n_idx + 1) * k_idx * np.pi / (2 * N_val))
     return T
 
+# Формула: S_vu = (1/4)C(v)C(u) * sum_x sum_y s_xy cos_xv cos_yu
+#     В матричной форме: DCT_COEFFS = (1/4) * (C_v_col @ C_u_row) * (T @ INPUT_BLOCK @ T.T)
+#                        где C_v_col @ C_u_row создает матрицу C(v)C(u).
+#                        Используется нормализация DCT-II, где множитель 2/N для 1D DCT
+#                        приводит к (4/N^2) для 2D DCT, но в JPEG используется scaling.
+#                        Формула JPEG (стр. 27, A.3.3) S_vu = 1/4 * C(u)C(v) sum sum s_xy cos cos.
+#                        T матрица здесь не включает sqrt(2/N) или sqrt(1/N) множители,
+#                        они учтены в C(u)C(v) и общем множителе 1/4.
 
 def dct_2d_matrix_transform(input_block):
     """

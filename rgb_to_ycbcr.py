@@ -43,7 +43,6 @@ def rgb_to_ycbcr(rgb_image):
 def ycbcr_to_rgb(ycbcr_image):
     """
     Преобразует изображение из цветового пространства YCbCr в RGB.
-    (Эта функция для тестирования обратимости и полноты)
 
     Аргументы:
         ycbcr_image (np.ndarray): Входное изображение в формате YCbCr.
